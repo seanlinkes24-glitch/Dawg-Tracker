@@ -219,6 +219,11 @@
           <option value="Dry Up">Dry Up</option>
         </select>
       </div>
+
+      <div class="form-row">
+        <label>CHART URL (Barchart link)</label>
+        <input type="url" id="f-chart-url" placeholder="https://www.barchart.com/stocks/quotes/...">
+      </div>
       <div class="form-row-2">
         <div><label>DAWG THRUST DATE</label><input type="date" id="f-thrust-date"></div>
         <div><label>NEXT CHECK DATE</label><input type="date" id="f-next-check"></div>
@@ -346,6 +351,7 @@ function openModal(id = null) {
     document.getElementById('f-box-high').value = s.boxHigh;
     document.getElementById('f-slope').value = s.slope;
     document.getElementById('f-volume').value = s.volume || 'Average';
+    document.getElementById('f-chart-url').value = s.chartUrl || '';
     document.getElementById('f-thrust-date').value = s.thrustDate;
     document.getElementById('f-next-check').value = s.nextCheck;
     document.getElementById('f-ema').value = s.ema;
@@ -360,6 +366,7 @@ function openModal(id = null) {
     document.getElementById('f-box-high').value = '';
     document.getElementById('f-slope').value = '';
     document.getElementById('f-volume').value = 'Average';
+    document.getElementById('f-chart-url').value = '';
     document.getElementById('f-thrust-date').value = '';
     document.getElementById('f-next-check').value = '';
     document.getElementById('f-ema').value = 'above';
@@ -388,6 +395,7 @@ async function saveStock() {
     boxHigh: parseFloat(document.getElementById('f-box-high').value) || 0,
     slope: parseFloat(document.getElementById('f-slope').value) || 0,
     volume: document.getElementById('f-volume').value,
+    chartUrl: document.getElementById('f-chart-url').value.trim(),
     thrustDate: document.getElementById('f-thrust-date').value,
     nextCheck: document.getElementById('f-next-check').value,
     ema: document.getElementById('f-ema').value,
@@ -527,6 +535,7 @@ function render() {
         </div>
       </div>
       <div class="card-actions">
+        ${s.chartUrl ? `<button class="btn-action" onclick="window.open('${s.chartUrl}', '_blank')">CHART</button>` : ''}
         <button class="btn-action" onclick="cycleStatus('${s.id}')">CYCLE STATUS</button>
         <button class="btn-action" onclick="openModal('${s.id}')">EDIT</button>
         <button class="btn-action danger" onclick="deleteStock('${s.id}')">REMOVE</button>
